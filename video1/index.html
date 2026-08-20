@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Watch the video now.">
+<title>Video Ready to Watch</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%}
+body{
+  background:#f5f5f5;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#222;
+}
+.vp-wrap{
+  width:100%;
+  max-width:640px;
+  margin:25px auto;
+  padding:10px;
+}
+.vp-card{
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
+  text-align:center;
+}
+.vp-player{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#111;
+  overflow:hidden;
+}
+.vp-thumbnail{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.vp-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:none;
+  background:#111;
+}
+.vp-video video{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+  background:#111;
+}
+.vp-watch{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  border:0;
+  border-radius:14px;
+  padding:17px 27px;
+  background:linear-gradient(135deg,#ff1744,#e60035);
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  line-height:1;
+  cursor:pointer;
+  white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.38);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.vp-watch:hover{
+  transform:translate(-50%,-50%) scale(1.04);
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+}
+.vp-watch:active{
+  transform:translate(-50%,-50%) scale(.97);
+}
+.vp-content{padding:25px 20px 30px}
+.vp-title{
+  margin:0 0 10px;
+  font-size:26px;
+  font-weight:700;
+}
+.vp-description{
+  margin:0 auto;
+  max-width:500px;
+  color:#666;
+  line-height:1.6;
+  font-size:15px;
+}
+@media(max-width:480px){
+  .vp-wrap{padding:8px}
+  .vp-content{padding:20px 15px 25px}
+  .vp-title{font-size:23px}
+  .vp-description{font-size:14px}
+  .vp-watch{font-size:16px;padding:15px 22px}
+}
+</style>
+</head>
+
+<body>
+<div class="vp-wrap">
+  <div class="vp-card">
+
+    <div class="vp-player">
+
+      <!-- THUMBNAIL AWAL -->
+      <img
+        id="videoThumbnail"
+        class="vp-thumbnail"
+        src="https://i.ibb.co/WWH5GmdM/Screenshot-2026-08-20-165542.png>"
+        alt="Video Thumbnail">
+
+      <!-- VIDEO: MUNCUL SETELAH WATCH VIDEO NOW DIKLIK -->
+      <div id="videoBox" class="vp-video">
+        <video id="videoPlayer" playsinline preload="metadata" controls>
+          <source
+            src="https://cdn.videy.co/wcXdB8Vp1.mp4"
+            type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+
+      <!-- SATU TOMBOL SAJA -->
+      <button id="watchNowButton" class="vp-watch" type="button">
+        ▶ WATCH VIDEO NOW
+      </button>
+
+    </div>
+
+    <div class="vp-content">
+      <h1 class="vp-title">Video Ready to Watch</h1>
+      <p class="vp-description">
+        Click the button above to continue and watch the video.
+      </p>
+    </div>
+
+  </div>
+  <script>
+  atOptions = {
+    'key' : '872a98bb5be6ca16fb21f05b9b04c38e',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://gasptournament.com/872a98bb5be6ca16fb21f05b9b04c38e/invoke.js"></script>
+
+</div>
+
+<script>
+/* =====================================================
+   CUKUP GANTI 3 BAGIAN INI
+   ===================================================== */
+
+const VIDEO_URL =
+"https://cdn.videy.co/5kv8B6FC1.mp4";
+
+const THUMBNAIL_URL =
+"https://i.ibb.co/hJ9G9nQL/Screenshot-2026-08-20-180148.png";
+
+const SMARTLINK_URL =
+"https://gasptournament.com/fxetw1vm6?key=d07c74c83b5ceb0794d432974d5f8cc1";
+
+/* =====================================================
+   JANGAN UBAH BAGIAN DI BAWAH
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  const button = document.getElementById("watchNowButton");
+  const thumbnail = document.getElementById("videoThumbnail");
+  const videoBox = document.getElementById("videoBox");
+  const video = document.getElementById("videoPlayer");
+
+  thumbnail.src = THUMBNAIL_URL;
+
+  const source = video.querySelector("source");
+  source.src = VIDEO_URL;
+  video.load();
+
+  button.addEventListener("click", function(){
+
+    /*
+      Satu klik pengguna:
+      1. SmartLink dibuka di tab baru.
+      2. Video ditampilkan dan mulai diputar di halaman ini.
+    */
+    window.open(SMARTLINK_URL, "_blank", "noopener,noreferrer");
+
+    thumbnail.style.display = "none";
+    button.style.display = "none";
+    videoBox.style.display = "block";
+
+    video.play().catch(function(){
+      /* Jika browser menolak autoplay, kontrol video tetap tersedia. */
+    });
+  });
+
+});
+</script>
+
+  <script src="https://gasptournament.com/df/dd/b3/dfddb3bcc661e854a603b1b1b11ddb6b.js"></script>
+
+</body>
+</html>
